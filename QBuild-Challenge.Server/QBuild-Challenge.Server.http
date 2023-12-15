@@ -1,0 +1,6 @@
+@QBuild_Challenge.Server_HostAddress = http://localhost:5008
+
+GET {{QBuild_Challenge.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

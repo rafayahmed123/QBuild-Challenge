@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QBuild-Challenge.Server", "QBuild-Challenge.Server\QBuild-Challenge.Server.csproj", "{FFBA7C2E-2584-4F89-8188-D7BB675BBD3C}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "qbuild-challenge.client", "qbuild-challenge.client\qbuild-challenge.client.esproj", "{E7C57DFE-D7A4-49B9-986F-D428381D9068}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFBA7C2E-2584-4F89-8188-D7BB675BBD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBA7C2E-2584-4F89-8188-D7BB675BBD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFBA7C2E-2584-4F89-8188-D7BB675BBD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFBA7C2E-2584-4F89-8188-D7BB675BBD3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C57DFE-D7A4-49B9-986F-D428381D9068}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {029F7594-D348-4BB4-ADE5-E30CA22788AA}
+	EndGlobalSection
+EndGlobal
