@@ -14,28 +14,21 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
     };
     const [treeData, setTreeData] = useState([]);
 
+
+    // Effect hook to update the treeData when the bom prop changes
     useEffect(() => {
         if (bom.length > 0) {
             const roots = bom.filter(item => !bom.some(innerItem => innerItem.COMPONENT_NAME === item.PARENT_NAME));
-
-            // Build the tree structure for each top-level node
             const tree = roots.map(root => ({
                 ...root,
                 children: buildTree(root.COMPONENT_NAME, bom),
             }));
-            setTreeData(tree);
+
+            setTreeData([...tree]);
         }
-        // Identify top-level nodes (nodes without parents)
+    }, [bom]);
 
-    }, [bom])
-
-
-    /**
-     * Recursively builds a tree structure based on parent-child relationships in the data.
-     * @param {string} parentName - The parent node's COMPONENT_NAME.
-     * @param {Object[]} data - The array of objects representing the tree nodes.
-     * @returns {Object[]} An array of nodes with their children.
-     */
+    // Recursively builds a tree structure based on parent - child relationships in the data.
     const buildTree = (parentName, data) => {
         const children = data
             .filter(item => item.PARENT_NAME === parentName)
@@ -47,13 +40,22 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
         return children.length > 0 ? children : null;
     };
 
-    /**
-     * Recursively renders a tree structure using the TreeView and TreeItem components from Material-UI.
-     * @param {Object[]} nodes - The array of nodes to render.
-     * @returns {React.ReactNode} The rendered tree structure.
-     */
+    // sorts nodes based on if they have children or not
+    const sortChildren = (nodes) => {
+        return nodes.sort((a, b) => {
+            if (a.children && !b.children) {
+                return -1; 
+            }
+            if (!a.children && b.children) {
+                return 1; 
+            }
+            return 0;
+        });
+    };
+
+    // Recursively renders a tree structure using the TreeView and TreeItem components from Material-UI
     const renderTree = (nodes) => (
-        nodes.map((node) => (
+        sortChildren(nodes).map((node) => (
             <TreeItem
                 key={node.COMPONENT_NAME}
                 nodeId={node.COMPONENT_NAME}
@@ -69,10 +71,9 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
         <TreeView
             style={treeViewStyle}
             aria-label="parts-navigator"
-            defaultCollapseIcon={<span><KeyboardArrowDownIcon/></span>}
+            defaultCollapseIcon={<span><KeyboardArrowDownIcon /></span>}
             defaultExpandIcon={<span><ChevronRightIcon /></span>}
         >
-            {/* Render the top-level nodes and their children */}
             {treeData.length > 0 && treeData.map((node) => (
                 <TreeItem
                     key={node.COMPONENT_NAME}
@@ -85,9 +86,8 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
                 >
                     {node.children && renderTree(node.children)}
                 </TreeItem>
-            ))
-            }
-        </TreeView >
+            ))}
+        </TreeView>
     );
 };
 

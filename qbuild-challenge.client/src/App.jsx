@@ -17,19 +17,29 @@ function App() {
         alignItems: 'center',
         marginLeft: 10 
     };
+    const buttonStyle = {
+        maxHeight: '35px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
     const [bom, setBom] = useState({});
     const [isBomLoaded, setIsBomLoaded] = useState(false)
     const [columns, setColumns] = useState([]);
     const [currentPart, setCurrentPart] = useState('')
 
-    const loadBOM = () => {
-        fetch(`https://localhost:7151/api/QBuild/GetBom`).then(response => response.json()).then(data => { setBom(data); setIsBomLoaded(true) });
+    // Fetch BOM data
+    const loadBOM = async () => {
+        await fetch(`https://localhost:7151/api/QBuild/GetBom`).then(response => response.json()).then(data => {
+            setBom(data);
+            setIsBomLoaded(true);
+        });
     }
 
+    // Retrieve all data in parts table for children of node
     const formatGridView = async (children) => {
         let formattedChildren = []
 
-        // Use Promise.all to wait for all fetch operations to complete
         await Promise.all(children.map(async (childNode) => {
             const response = await fetch(`https://localhost:7151/api/QBuild/GetParts?componentName=${childNode.COMPONENT_NAME}`);
             const data = await response.json();
@@ -51,6 +61,7 @@ function App() {
         setColumns(formattedChildren)
     }
 
+    // load Parts based on if node has children
     const loadRelatedParts = (node) => {
         if (node.children) {
             formatGridView(node.children);
@@ -67,8 +78,8 @@ function App() {
                 <div style={outerContainerStyle}>
                     <MyTreeView bom={bom} loadParts={loadRelatedParts} setPart={setCurrentPart} />
                     <div style={innerContainerStyle}>
-                        <p>Current Part: {currentPart}</p> 
-                        <button onClick={() => { loadBOM() }} disabled={isBomLoaded} style={{ maxHeight: '35px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}> Populate Data In Tree</button>
+                        <p>Current Part: {currentPart}</p>
+                        <button onClick={() => { loadBOM() }} disabled={isBomLoaded} style={buttonStyle}> Populate Data In Tree</button>
                     </div>
                 </div>
                 <MyTable data={columns} />
