@@ -4,11 +4,11 @@ import { TreeView, TreeItem } from '@mui/x-tree-view';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const MyTreeView = ({ bom, loadParts, setPart }) => {
+const MyTreeView = ({ bom, loadParts, setPart, setParent }) => {
     const treeViewStyle = {
         border: '2px solid #000000',
         padding: '10px',
-        maxHeight: 150,
+        height: 150,
         overflowY: 'auto',
         width: 600,
     };
@@ -60,12 +60,17 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
                 key={node.COMPONENT_NAME}
                 nodeId={node.COMPONENT_NAME}
                 label={node.COMPONENT_NAME}
-                onClick={() => { loadParts(node); setPart(node.COMPONENT_NAME) }}
+                onClick={() => {
+                    loadParts(node);
+                    setPart(node.COMPONENT_NAME);
+                    setParent(node.PARENT_NAME);
+                }}
             >
                 {node.children && renderTree(node.children)}
             </TreeItem>
         ))
     );
+
 
     return (
         <TreeView
@@ -73,6 +78,7 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
             aria-label="parts-navigator"
             defaultCollapseIcon={<span><KeyboardArrowDownIcon /></span>}
             defaultExpandIcon={<span><ChevronRightIcon /></span>}
+
         >
             {treeData.length > 0 && treeData.map((node) => (
                 <TreeItem
@@ -82,6 +88,7 @@ const MyTreeView = ({ bom, loadParts, setPart }) => {
                     onClick={() => {
                         loadParts(node);
                         setPart(node.COMPONENT_NAME)
+                        setParent(node.COMPONENT_NAME);
                     }}
                 >
                     {node.children && renderTree(node.children)}

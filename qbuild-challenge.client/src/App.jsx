@@ -24,9 +24,10 @@ function App() {
         alignItems: 'center'
     }
     const [bom, setBom] = useState({});
-    const [isBomLoaded, setIsBomLoaded] = useState(false)
+    const [isBomLoaded, setIsBomLoaded] = useState(false);
     const [columns, setColumns] = useState([]);
-    const [currentPart, setCurrentPart] = useState('')
+    const [currentPart, setCurrentPart] = useState('');
+    const [parentPart, setParentPart] = useState('');
 
     // Fetch BOM data
     const loadBOM = async () => {
@@ -38,7 +39,7 @@ function App() {
 
     // Retrieve all data in parts table for children of node
     const formatGridView = async (children) => {
-        let formattedChildren = []
+        let formattedChildren = [];
 
         await Promise.all(children.map(async (childNode) => {
             const response = await fetch(`https://localhost:7151/api/QBuild/GetParts?componentName=${childNode.COMPONENT_NAME}`);
@@ -58,7 +59,7 @@ function App() {
             }
         }));
 
-        setColumns(formattedChildren)
+        setColumns(formattedChildren);
     }
 
     // load Parts based on if node has children
@@ -76,8 +77,9 @@ function App() {
         <div >
             <div style={{ padding: 10 }}>
                 <div style={outerContainerStyle}>
-                    <MyTreeView bom={bom} loadParts={loadRelatedParts} setPart={setCurrentPart} />
+                    <MyTreeView bom={bom} loadParts={loadRelatedParts} setPart={setCurrentPart} setParent={ setParentPart } />
                     <div style={innerContainerStyle}>
+                        <p>Parent Child Part: {parentPart}</p>
                         <p>Current Part: {currentPart}</p>
                         <button onClick={() => { loadBOM() }} disabled={isBomLoaded} style={buttonStyle}> Populate Data In Tree</button>
                     </div>
