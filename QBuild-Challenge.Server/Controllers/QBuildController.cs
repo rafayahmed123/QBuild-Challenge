@@ -22,7 +22,6 @@ namespace QBuild_Challenge.Server.Controllers
         public string GetBom()
         {
             string query = "select * from dbo.bom";
-            DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnectString");
 
             using (SqlConnection sqlConnection = new SqlConnection(sqlDataSource))
@@ -63,7 +62,6 @@ namespace QBuild_Challenge.Server.Controllers
         {
             // Use parameterized query to prevent SQL injection
             string query = "SELECT * FROM dbo.part WHERE NAME = @ComponentName";
-            DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnectString");
 
             using (SqlConnection sqlConnection = new SqlConnection(sqlDataSource))
