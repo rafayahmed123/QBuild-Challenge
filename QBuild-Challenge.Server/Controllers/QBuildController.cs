@@ -19,13 +19,11 @@ namespace QBuild_Challenge.Server.Controllers
 
         [HttpGet]
         [Route("GetBom")]
-
         public string GetBom()
         {
             string query = "select * from dbo.bom";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnectString");
-            SqlDataReader myReader;
 
             using (SqlConnection sqlConnection = new SqlConnection(sqlDataSource))
             {

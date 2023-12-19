@@ -22,7 +22,7 @@ function App() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    };
     const [bom, setBom] = useState({});
     const [isBomLoaded, setIsBomLoaded] = useState(false);
     const [columns, setColumns] = useState([]);
